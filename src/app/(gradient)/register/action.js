@@ -29,9 +29,7 @@ export async function register(state, formData) {
 
   const jsonResponse = await response.json()
 
-  console.log(jsonResponse)
+  if (jsonResponse?.message === 'User has been created successfully') return redirect(LOGIN_PATH)
 
-  if (response.status === 201 || response.status === 200) redirect(LOGIN_PATH)
-
-  return response.json()
+  return jsonResponse
 }

@@ -9,7 +9,7 @@ const initialFormState = {
   message: []
 }
 
-export default function Register() {
+export default function RegisterView() {
   const [state, formAction] = useFormState(register, initialFormState)
 
   const errorMessages = useMemo(
@@ -18,12 +18,12 @@ export default function Register() {
   )
 
   return (
-    <form action={formAction} className='flex flex-col gap-4 w-full'>
+    <form action={formAction} className='flex flex-col gap-4 w-full flex-1 justify-center'>
       <h1 className='text-white font-bold text-2xl ml-5'>Register</h1>
       <Input name='email' type='email' placeholder='Enter Email' />
       <Input name='username' type='text' placeholder='Create Username' />
-      <Input name='password' type='password' value='halo1234' placeholder='Create Password' />
-      <Input name='confirm_password' type='password' value='halo1234' placeholder='Confirm Password' />
+      <Input name='password' type='password' placeholder='Create Password' />
+      <Input name='confirm_password' type='password' placeholder='Confirm Password' />
       {errorMessages.map((str, idx) => (
         <p key={idx} className='text-xs text-red-400'>
           {str}

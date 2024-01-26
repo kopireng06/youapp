@@ -1,11 +1,14 @@
+import AboutHeader from '@src/ui/AboutHeader'
+
 const style = {
-  background: 'radial-gradient(124.23% 171.99% at 100% -3.39%, #1F4247 0%, #0D1D23 56.18%, #09141A 100%)',
+  background: '#09141A',
   width: 375
 }
 
 export default function BlackLayout({ children }) {
   return (
-    <div style={style} className='mx-auto min-h-screen flex items-center px-4'>
+    <div style={style} className='mx-auto min-h-screen flex flex-col px-4'>
+      <AboutHeader />
       {children}
     </div>
   )
