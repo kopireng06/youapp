@@ -5,8 +5,6 @@ import { HOME_PATH, LOGIN_PATH } from './constants/page'
 export async function middleware(request) {
   const { profile } = await getProfile()
 
-  console.log(request.nextUrl.pathname)
-
   if (request.nextUrl.pathname === HOME_PATH) return NextResponse.redirect(new URL(LOGIN_PATH, request.url))
 
   if (!profile) {

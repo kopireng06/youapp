@@ -8,7 +8,7 @@ const BackButton = () => {
   const router = useRouter()
 
   return (
-    <button onClick={router.back} className='text-sm text-white flex gap-2 items-center relative'>
+    <button onClick={router.back} className='text-sm font-bold text-white flex gap-2 items-center relative'>
       <Image priority src={LeftArrowSvg} alt='back-icon' />
       Back
     </button>

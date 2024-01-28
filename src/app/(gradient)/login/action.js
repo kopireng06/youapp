@@ -21,7 +21,6 @@ export async function login(state, formData) {
   })
 
   const jsonResponse = await response.json()
-  console.log(jsonResponse)
 
   if (jsonResponse?.message === 'User has been logged in successfully') {
     cookies().set('x-access-token', jsonResponse.access_token)
