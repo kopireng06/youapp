@@ -11,9 +11,15 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { createProfile, updateProfile } from './action'
 import { INTERESTS_PATH } from '@src/constants/page'
 
+function diff_years(dt2, dt1) {
+  var diff = (dt2.getTime() - dt1.getTime()) / 1000
+  diff /= 60 * 60 * 24
+  return Math.abs(Math.round(diff / 365.25))
+}
+
 export default function AboutView({ profile }) {
   const [isEditAbout, setIsEditAbout] = useState(false)
-  const { name, birthday, weight, height, interests } = profile
+  const { name, birthday, weight, height, interests, horoscope, zodiac } = profile
 
   const isInitialProfile = useMemo(() => !(name && birthday && weight && height && interests?.length), [profile])
 
@@ -21,7 +27,7 @@ export default function AboutView({ profile }) {
 
   return (
     <div className='w-full flex-1 flex flex-col gap-5 justify-center'>
-      <PhotoProfile username={profile?.username} />
+      <PhotoProfile {...profile} />
       <Card
         title='About'
         as={isEditAbout ? 'form' : 'action'}
@@ -40,8 +46,29 @@ export default function AboutView({ profile }) {
       >
         {isEditAbout ? (
           <AboutForm profile={profile} />
-        ) : (
+        ) : isInitialProfile ? (
           <FallbackContent message='Add in your your to help others know you better' />
+        ) : (
+          <div className='flex flex-col gap-3 text-xs'>
+            <div className='flex text-gray-300 gap-2'>
+              Birthday:{' '}
+              <span className='text-white'>
+                {birthday?.replaceAll('-', ' / ')} Age ({diff_years(new Date(birthday), new Date())})
+              </span>
+            </div>
+            <div className='flex text-gray-300 gap-2'>
+              Horoscope: <span className='text-white'>{horoscope}</span>
+            </div>
+            <div className='flex text-gray-300 gap-2'>
+              Zodiac: <span className='text-white'>{zodiac}</span>
+            </div>
+            <div className='flex text-gray-300 gap-2'>
+              Height: <span className='text-white'>{height} cm</span>
+            </div>
+            <div className='flex text-gray-300 gap-2'>
+              Weight: <span className='text-white'>{weight} kg</span>
+            </div>
+          </div>
         )}
       </Card>
       <Card
@@ -52,7 +79,17 @@ export default function AboutView({ profile }) {
           </Link>
         }
       >
-        <FallbackContent message='Add in your interest to find a better match' />
+        {interests?.length ? (
+          <div className='flex gap-2 flex-wrap'>
+            {interests.map((val, idx) => (
+              <div className='text-white bg-gray-800 py-2 px-4 rounded-2xl text-xs' key={idx}>
+                {val}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <FallbackContent message='Add in your interest to find a better match' />
+        )}
       </Card>
     </div>
   )

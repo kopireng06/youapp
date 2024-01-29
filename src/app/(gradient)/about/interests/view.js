@@ -18,8 +18,6 @@ const InterestsView = ({ children, profile }) => {
   const { interests: initialInterests } = profile
   const [interests, setInterests] = useState(initialInterests || [])
 
-  console.log(initialInterests)
-
   return (
     <form action={updateProfile} className='flex flex-col items-center min-h-screen w-full'>
       {children}
